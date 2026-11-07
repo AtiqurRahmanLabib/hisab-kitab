@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#111318">
+<title>Labba Hisab.com</title>
+<style>
+:root{color-scheme:dark;--bg:#0d0f14;--panel:#151922;--panel2:#1b202b;--line:#292f3c;--text:#edf0f6;--muted:#929aaa;--green:#48c78e;--red:#f07878;--blue:#76a9fa;--amber:#e9bd67}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:14px/1.5 Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif}
+button,input,select,textarea{font:inherit}button{cursor:pointer;border:1px solid var(--line);border-radius:9px;background:var(--panel2);color:var(--text);padding:9px 13px}button:hover{filter:brightness(1.15)}button.primary{background:var(--green);color:#07150e;border-color:var(--green);font-weight:700}button.danger{color:var(--red)}button.small{padding:5px 9px;font-size:12px}
+.app{max-width:1180px;margin:auto;padding:26px 20px 60px}.top{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:24px}.brand{display:flex;gap:12px;align-items:center}.logo{width:42px;height:42px;border-radius:12px;background:#1d3b32;color:var(--green);display:grid;place-items:center;font-weight:900;font-size:20px}.brand h1{font-size:20px;margin:0}.brand p{margin:2px 0 0;color:var(--muted);font-size:12px}.actions{display:flex;gap:8px;flex-wrap:wrap}.status{font-size:11px;color:var(--green);display:flex;align-items:center;gap:6px}.dot{width:7px;height:7px;border-radius:50%;background:var(--green)}
+h2{font-size:16px;margin:0 0 14px}.muted{color:var(--muted)}.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:22px}.card,.panel{background:var(--panel);border:1px solid var(--line);border-radius:14px}.card{padding:16px}.card .label{color:var(--muted);font-size:12px}.card .value{font-size:25px;font-weight:750;letter-spacing:-.6px;margin-top:6px}.green{color:var(--green)}.red{color:var(--red)}.blue{color:var(--blue)}.amber{color:var(--amber)}
+.grid{display:grid;grid-template-columns:1.2fr .8fr;gap:14px;margin-bottom:14px}.panel{padding:17px;min-width:0}.panel-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:13px}.panel-head h2{margin:0}.chart-wrap{height:205px;position:relative}.chart-wrap canvas{width:100%;height:100%}.legend{display:flex;gap:15px;flex-wrap:wrap;margin-top:8px;color:var(--muted);font-size:11px}.legend span:before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px;background:var(--c)}
+.toolbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}.toolbar input,.toolbar select{max-width:220px}
+input,select,textarea{width:100%;background:#10141c;border:1px solid var(--line);color:var(--text);border-radius:9px;padding:10px 11px;outline:none}input:focus,select:focus,textarea:focus{border-color:var(--green)}label{display:block;font-size:12px;color:var(--muted);margin-bottom:6px}.field{margin-bottom:12px}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 12px}.full{grid-column:1/-1}
+table{width:100%;border-collapse:collapse}th{text-align:left;color:var(--muted);font-size:11px;font-weight:600;padding:10px 8px;border-bottom:1px solid var(--line)}td{padding:11px 8px;border-bottom:1px solid #242a35;font-size:13px}tr:last-child td{border-bottom:0}.table-scroll{overflow-x:auto}.empty{text-align:center;padding:28px;color:var(--muted)}.person-list{display:grid;gap:9px}.person{display:flex;justify-content:space-between;align-items:center;padding:11px 12px;background:var(--panel2);border-radius:10px;gap:10px}.person strong{display:block}.person small{color:var(--muted)}.pill{font-size:10px;padding:3px 7px;border-radius:20px;background:#20372f;color:var(--green)}.pill.owe{background:#3b2929;color:var(--red)}
+.modal{position:fixed;inset:0;background:#000a;display:none;align-items:center;justify-content:center;padding:16px;z-index:10}.modal.open{display:flex}.dialog{width:min(510px,100%);max-height:90vh;overflow:auto;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:20px;box-shadow:0 24px 80px #0009}.dialog-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:17px}.dialog-head h2{margin:0}.dialog-foot{display:flex;justify-content:flex-end;gap:8px;margin-top:16px}.hint{font-size:11px;color:var(--muted);margin-top:5px}.notice{border:1px solid #4b3d23;background:#282216;color:#e9bd67;padding:10px 12px;border-radius:10px;font-size:12px;margin-bottom:15px}
+@media(max-width:800px){.cards{grid-template-columns:repeat(2,1fr)}.grid{grid-template-columns:1fr}.top{align-items:flex-start;flex-direction:column}.actions{width:100%}}
+@media(max-width:480px){.app{padding:18px 12px 40px}.card{padding:12px}.card .value{font-size:21px}.form-grid{grid-template-columns:1fr}.full{grid-column:auto}td,th{white-space:nowrap}}
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="top">
+    <div class="brand"><div class="logo">৳</div><div><h1>Labba Hisab Kitab.com</h1><p>Personal lending & borrowing tracker</p></div></div>
+    <div class="actions">
+      <span class="status"><i class="dot"></i> Saved on this device</span>
+      <button id="exportBtn">Export Backup</button>
+      <button id="importBtn">Import Backup</button>
+      <button class="primary" id="addBtn">＋ Add Transaction</button>
+      <input id="fileInput" type="file" accept=".json,application/json" hidden>
+    </div>
+  </header>
+
+  <div class="notice">Your records are stored in this browser using IndexedDB. Export a JSON backup regularly. Clearing browser site data or using a different browser/device can remove or hide local records.</div>
+
+  <section class="cards">
+    <div class="card"><div class="label">I Will Receive</div><div class="value green" id="receiveTotal">৳0</div></div>
+    <div class="card"><div class="label">I Need to Pay</div><div class="value red" id="payTotal">৳0</div></div>
+    <div class="card"><div class="label">Total Lent</div><div class="value blue" id="lentTotal">৳0</div></div>
+    <div class="card"><div class="label">Total Borrowed</div><div class="value amber" id="borrowedTotal">৳0</div></div>
+  </section>
+
+  <section class="grid">
+    <div class="panel">
+      <div class="panel-head"><h2>Money Overview</h2><span class="muted" style="font-size:11px">Outstanding balance</span></div>
+      <div class="chart-wrap"><canvas id="chart"></canvas></div>
+      <div class="legend"><span style="--c:#48c78e">I will receive</span><span style="--c:#f07878">I need to pay</span><span style="--c:#76a9fa">Paid / received</span></div>
+    </div>
+    <div class="panel">
+      <div class="panel-head"><h2>People & Balances</h2><span class="muted" id="peopleCount">0 people</span></div>
+      <div class="person-list" id="peopleList"><div class="empty">No people added yet.</div></div>
+    </div>
+  </section>
+
+  <section class="panel">
+    <div class="panel-head"><h2>Transaction History</h2><button class="small" id="clearFilters">Clear filters</button></div>
+    <div class="toolbar">
+      <input id="search" placeholder="Search by person or note…">
+      <select id="typeFilter"><option value="">All transaction types</option><option value="lent">Money lent</option><option value="borrowed">Money borrowed</option><option value="received">Money received</option><option value="paid">Money paid</option></select>
+    </div>
+    <div class="table-scroll"><table><thead><tr><th>Date</th><th>Person</th><th>Type</th><th>Amount</th><th>Note</th><th>Actions</th></tr></thead><tbody id="transactions"><tr><td colspan="6" class="empty">No transactions yet. Add your first transaction.</td></tr></tbody></table></div>
+  </section>
+  <p class="muted" style="font-size:11px;text-align:center;margin-top:18px">Dhar Hisab · Private local storage · Amounts in Bangladeshi Taka (BDT)</p>
+</div>
+
+<div class="modal" id="modal">
+  <div class="dialog">
+    <div class="dialog-head"><h2 id="modalTitle">Add Transaction</h2><button id="closeModal" aria-label="Close">✕</button></div>
+    <form id="transactionForm">
+      <div class="form-grid">
+        <div class="field full"><label for="person">Person's name *</label><input id="person" required maxlength="80" placeholder="e.g. Rahim"></div>
+        <div class="field"><label for="type">Transaction type *</label><select id="type" required><option value="lent">I lent money</option><option value="borrowed">I borrowed money</option><option value="received">I received money back</option><option value="paid">I paid money back</option></select></div>
+        <div class="field"><label for="amount">Amount (BDT) *</label><input id="amount" type="number" min="0.01" step="0.01" required placeholder="1000"></div>
+        <div class="field"><label for="date">Date *</label><input id="date" type="date" required></div>
+        <div class="field"><label for="note">Note (optional)</label><input id="note" maxlength="180" placeholder="Payment details"></div>
+      </div>
+      <div class="hint">Use “I received money back” for repayments from someone who borrowed from you. Use “I paid money back” for repayments to someone you borrowed from.</div>
+      <div class="dialog-foot"><button type="button" id="cancelBtn">Cancel</button><button class="primary" type="submit">Save Transaction</button></div>
+    </form>
+  </div>
+</div>
+<div class="modal" id="personModal">
+  <div class="dialog">
+    <div class="dialog-head"><h2 id="personTitle">Person Details</h2><button id="closePerson">✕</button></div>
+    <div id="personSummary"></div>
+    <div class="table-scroll" style="margin-top:14px"><table><thead><tr><th>Date</th><th>Type</th><th>Amount</th><th>Note</th></tr></thead><tbody id="personTransactions"></tbody></table></div>
+  </div>
+</div>
+
+<script>
+const DB_NAME='dhar-hisab-db', STORE='transactions', DB_VERSION=1;
+let db, records=[], editingId=null;
+const $=id=>document.getElementById(id);
+const money=n=>'৳'+Number(n||0).toLocaleString('en-BD',{maximumFractionDigits:2});
+const dateToday=()=>new Date().toISOString().slice(0,10);
+const labels={lent:'Money lent',borrowed:'Money borrowed',received:'Money received',paid:'Money paid'};
+function openDB(){return new Promise((resolve,reject)=>{const req=indexedDB.open(DB_NAME,DB_VERSION);req.onupgradeneeded=()=>{const d=req.result;if(!d.objectStoreNames.contains(STORE)){const s=d.createObjectStore(STORE,{keyPath:'id',autoIncrement:true});s.createIndex('date','date');}};req.onsuccess=()=>resolve(req.result);req.onerror=()=>reject(req.error);});}
+function tx(mode='readonly'){return db.transaction(STORE,mode).objectStore(STORE);}
+function allRecords(){return new Promise((resolve,reject)=>{const r=tx().getAll();r.onsuccess=()=>resolve(r.result);r.onerror=()=>reject(r.error);});}
+function saveRecord(record){return new Promise((resolve,reject)=>{const r=tx('readwrite').put(record);r.onsuccess=()=>resolve(r.result);r.onerror=()=>reject(r.error);});}
+function deleteRecord(id){return new Promise((resolve,reject)=>{const r=tx('readwrite').delete(id);r.onsuccess=()=>resolve();r.onerror=()=>reject(r.error);});}
+function balanceFor(items){let receive=0,pay=0,lent=0,borrowed=0,returned=0,paid=0;for(const x of items){const a=Number(x.amount)||0;if(x.type==='lent'){receive+=a;lent+=a}else if(x.type==='borrowed'){pay+=a;borrowed+=a}else if(x.type==='received'){receive-=a;returned+=a}else if(x.type==='paid'){pay-=a;paid+=a}}return{receive,pay,lent,borrowed,returned,paid};}
+function render(){
+ const totals=balanceFor(records);$('receiveTotal').textContent=money(Math.max(0,totals.receive));$('payTotal').textContent=money(Math.max(0,totals.pay));$('lentTotal').textContent=money(totals.lent);$('borrowedTotal').textContent=money(totals.borrowed);
+ const people=new Map();for(const r of records){const key=r.person.trim().toLowerCase();if(!people.has(key))people.set(key,{name:r.person,items:[]});people.get(key).items.push(r)}
+ $('peopleCount').textContent=people.size+' people';
+ const plist=[...people.values()].map(p=>({...p,balance:balanceFor(p.items)})).sort((a,b)=>(Math.abs(b.balance.receive)+Math.abs(b.balance.pay))-(Math.abs(a.balance.receive)+Math.abs(a.balance.pay)));
+ $('peopleList').innerHTML=plist.length?plist.map((p,i)=>{const b=p.balance;const net=b.receive-b.pay;let label=net>0.005?'Will receive '+money(net):net<-.005?'Need to pay '+money(-net):'Settled';return `<div class="person"><div><strong>${esc(p.name)}</strong><small>${p.items.length} transaction${p.items.length===1?'':'s'}</small></div><div style="text-align:right"><span class="pill ${net<-.005?'owe':''}">${label}</span><div style="margin-top:5px"><button class="small" data-person="${escAttr(p.name)}">Details</button></div></div></div>`}).join(''):'<div class="empty">No people added yet.</div>';
+ renderTransactions();drawChart(totals);
+}
+function renderTransactions(){const q=$('search').value.trim().toLowerCase(),f=$('typeFilter').value;const list=[...records].sort((a,b)=>b.date.localeCompare(a.date)||b.id-a.id).filter(r=>(!f||r.type===f)&&(!q||r.person.toLowerCase().includes(q)||(r.note||'').toLowerCase().includes(q)));$('transactions').innerHTML=list.length?list.map(r=>`<tr><td>${esc(r.date)}</td><td><strong>${esc(r.person)}</strong></td><td>${labels[r.type]}</td><td class="${r.type==='lent'||r.type==='received'?'green':'red'}">${money(r.amount)}</td><td>${esc(r.note||'—')}</td><td><button class="small" data-edit="${r.id}">Edit</button> <button class="small danger" data-delete="${r.id}">Delete</button></td></tr>`).join(''):'<tr><td colspan="6" class="empty">No matching transactions.</td></tr>';}
+function drawChart(t){const c=$('chart'),ctx=c.getContext('2d'),w=c.clientWidth,h=c.clientHeight,dpr=window.devicePixelRatio||1;c.width=w*dpr;c.height=h*dpr;ctx.scale(dpr,dpr);ctx.clearRect(0,0,w,h);const vals=[Math.max(0,t.receive),Math.max(0,t.pay),t.returned+t.paid],max=Math.max(1,...vals),colors=['#48c78e','#f07878','#76a9fa'];const names=['Receive','Pay','Paid back'];const gap= w/4,barW=Math.min(54,gap*.48);ctx.font='11px system-ui';ctx.textAlign='center';vals.forEach((v,i)=>{const x=gap*(i+.55),bh=(h-48)*(v/max);ctx.fillStyle='#242b37';roundRect(ctx,x-barW/2,8,barW,h-48,7);ctx.fill();ctx.fillStyle=colors[i];roundRect(ctx,x-barW/2,h-40-bh,barW,bh,7);ctx.fill();ctx.fillStyle='#a0a8b6';ctx.fillText(names[i],x,h-14);ctx.fillStyle='#edf0f6';ctx.fillText(shortMoney(v),x,Math.max(12,h-45-bh));});}
+function roundRect(ctx,x,y,w,h,r){h=Math.max(0,h);ctx.beginPath();ctx.roundRect(x,y,w,h,Math.min(r,w/2,h/2));}
+function shortMoney(v){return v>=100000?(v/100000).toFixed(1)+'L':v>=1000?(v/1000).toFixed(1)+'k':Math.round(v).toString();}
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+function escAttr(s){return esc(s).replace(/`/g,'&#96;')}
+function openForm(item){editingId=item?.id??null;$('modalTitle').textContent=item?'Edit Transaction':'Add Transaction';$('person').value=item?.person||'';$('type').value=item?.type||'lent';$('amount').value=item?.amount??'';$('date').value=item?.date||dateToday();$('note').value=item?.note||'';$('modal').classList.add('open');$('person').focus();}
+function closeForm(){$('modal').classList.remove('open');$('transactionForm').reset();editingId=null;}
+$('addBtn').onclick=()=>openForm();$('closeModal').onclick=closeForm;$('cancelBtn').onclick=closeForm;
+$('transactionForm').onsubmit=async e=>{e.preventDefault();const record={person:$('person').value.trim(),type:$('type').value,amount:Number($('amount').value),date:$('date').value,note:$('note').value.trim()};if(!record.person||!Number.isFinite(record.amount)||record.amount<=0)return;try{if(editingId!==null)record.id=editingId;await saveRecord(record);await refresh();closeForm();}catch(err){alert('Could not save this transaction: '+err.message)}};
+$('transactions').onclick=async e=>{const edit=e.target.dataset.edit,del=e.target.dataset.delete;if(edit){const item=records.find(r=>r.id===Number(edit));if(item)openForm(item)}if(del){const item=records.find(r=>r.id===Number(del));if(item&&confirm(`Delete this ${labels[item.type]} transaction for ${item.person}?`)){await deleteRecord(item.id);await refresh()}}};
+$('peopleList').onclick=e=>{const name=e.target.dataset.person;if(!name)return;const items=records.filter(r=>r.person.toLowerCase()===name.toLowerCase()).sort((a,b)=>b.date.localeCompare(a.date));const b=balanceFor(items),net=b.receive-b.pay;$('personTitle').textContent=name;$('personSummary').innerHTML=`<div class="cards" style="grid-template-columns:1fr 1fr;margin:0"><div class="card"><div class="label">Outstanding</div><div class="value ${net>=0?'green':'red'}" style="font-size:20px">${money(Math.abs(net))}</div><small class="muted">${net>=0?'They owe you':'You owe them'}</small></div><div class="card"><div class="label">Transactions</div><div class="value" style="font-size:20px">${items.length}</div></div></div>`;$('personTransactions').innerHTML=items.map(r=>`<tr><td>${esc(r.date)}</td><td>${labels[r.type]}</td><td>${money(r.amount)}</td><td>${esc(r.note||'—')}</td></tr>`).join('');$('personModal').classList.add('open')};
+$('closePerson').onclick=()=>$('personModal').classList.remove('open');
+$('search').oninput=renderTransactions;$('typeFilter').onchange=renderTransactions;$('clearFilters').onclick=()=>{$('search').value='';$('typeFilter').value='';renderTransactions()};
+async function refresh(){records=await allRecords();render();}
+$('exportBtn').onclick=()=>{const data={app:'Dhar Hisab',version:1,exportedAt:new Date().toISOString(),currency:'BDT',transactions:records};const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='dhar-hisab-backup-'+dateToday()+'.json';a.click();URL.revokeObjectURL(url)};
+$('importBtn').onclick=()=>$('fileInput').click();
+$('fileInput').onchange=async e=>{const file=e.target.files[0];if(!file)return;try{const data=JSON.parse(await file.text());if(!data||!Array.isArray(data.transactions))throw Error('Invalid backup file.');const valid=data.transactions.every(r=>r&&typeof r.person==='string'&&['lent','borrowed','received','paid'].includes(r.type)&&Number.isFinite(Number(r.amount))&&Number(r.amount)>0&&typeof r.date==='string');if(!valid)throw Error('Backup contains invalid transaction records.');if(!confirm(`Import ${data.transactions.length} transactions? This will replace all current records.`))return;await new Promise((resolve,reject)=>{const t=db.transaction(STORE,'readwrite'),s=t.objectStore(STORE);s.clear();for(const r of data.transactions){const copy={person:r.person,type:r.type,amount:Number(r.amount),date:r.date,note:String(r.note||'')};s.add(copy)}t.oncomplete=resolve;t.onerror=()=>reject(t.error);t.onabort=()=>reject(t.error||new Error('Import cancelled'));});await refresh();alert('Backup imported successfully.');}catch(err){alert('Import failed: '+err.message)}finally{$('fileInput').value=''}};
+window.addEventListener('resize',()=>{if(records.length||db)drawChart(balanceFor(records))});
+(async()=>{try{if(!('indexedDB'in window))throw Error('IndexedDB is not supported by this browser.');db=await openDB();await refresh()}catch(e){alert('Storage could not be opened: '+e.message)}})();
+</script>
+</body>
+</html>
