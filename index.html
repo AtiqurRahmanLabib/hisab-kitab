@@ -1,135 +1,1245 @@
 <!doctype html>
 <html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#111318">
-<title>Labba Hisab.com</title>
-<style>
-:root{color-scheme:dark;--bg:#0d0f14;--panel:#151922;--panel2:#1b202b;--line:#292f3c;--text:#edf0f6;--muted:#929aaa;--green:#48c78e;--red:#f07878;--blue:#76a9fa;--amber:#e9bd67}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:14px/1.5 Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif}
-button,input,select,textarea{font:inherit}button{cursor:pointer;border:1px solid var(--line);border-radius:9px;background:var(--panel2);color:var(--text);padding:9px 13px}button:hover{filter:brightness(1.15)}button.primary{background:var(--green);color:#07150e;border-color:var(--green);font-weight:700}button.danger{color:var(--red)}button.small{padding:5px 9px;font-size:12px}
-.app{max-width:1180px;margin:auto;padding:26px 20px 60px}.top{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:24px}.brand{display:flex;gap:12px;align-items:center}.logo{width:42px;height:42px;border-radius:12px;background:#1d3b32;color:var(--green);display:grid;place-items:center;font-weight:900;font-size:20px}.brand h1{font-size:20px;margin:0}.brand p{margin:2px 0 0;color:var(--muted);font-size:12px}.actions{display:flex;gap:8px;flex-wrap:wrap}.status{font-size:11px;color:var(--green);display:flex;align-items:center;gap:6px}.dot{width:7px;height:7px;border-radius:50%;background:var(--green)}
-h2{font-size:16px;margin:0 0 14px}.muted{color:var(--muted)}.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:22px}.card,.panel{background:var(--panel);border:1px solid var(--line);border-radius:14px}.card{padding:16px}.card .label{color:var(--muted);font-size:12px}.card .value{font-size:25px;font-weight:750;letter-spacing:-.6px;margin-top:6px}.green{color:var(--green)}.red{color:var(--red)}.blue{color:var(--blue)}.amber{color:var(--amber)}
-.grid{display:grid;grid-template-columns:1.2fr .8fr;gap:14px;margin-bottom:14px}.panel{padding:17px;min-width:0}.panel-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:13px}.panel-head h2{margin:0}.chart-wrap{height:205px;position:relative}.chart-wrap canvas{width:100%;height:100%}.legend{display:flex;gap:15px;flex-wrap:wrap;margin-top:8px;color:var(--muted);font-size:11px}.legend span:before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px;background:var(--c)}
-.toolbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}.toolbar input,.toolbar select{max-width:220px}
-input,select,textarea{width:100%;background:#10141c;border:1px solid var(--line);color:var(--text);border-radius:9px;padding:10px 11px;outline:none}input:focus,select:focus,textarea:focus{border-color:var(--green)}label{display:block;font-size:12px;color:var(--muted);margin-bottom:6px}.field{margin-bottom:12px}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 12px}.full{grid-column:1/-1}
-table{width:100%;border-collapse:collapse}th{text-align:left;color:var(--muted);font-size:11px;font-weight:600;padding:10px 8px;border-bottom:1px solid var(--line)}td{padding:11px 8px;border-bottom:1px solid #242a35;font-size:13px}tr:last-child td{border-bottom:0}.table-scroll{overflow-x:auto}.empty{text-align:center;padding:28px;color:var(--muted)}.person-list{display:grid;gap:9px}.person{display:flex;justify-content:space-between;align-items:center;padding:11px 12px;background:var(--panel2);border-radius:10px;gap:10px}.person strong{display:block}.person small{color:var(--muted)}.pill{font-size:10px;padding:3px 7px;border-radius:20px;background:#20372f;color:var(--green)}.pill.owe{background:#3b2929;color:var(--red)}
-.modal{position:fixed;inset:0;background:#000a;display:none;align-items:center;justify-content:center;padding:16px;z-index:10}.modal.open{display:flex}.dialog{width:min(510px,100%);max-height:90vh;overflow:auto;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:20px;box-shadow:0 24px 80px #0009}.dialog-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:17px}.dialog-head h2{margin:0}.dialog-foot{display:flex;justify-content:flex-end;gap:8px;margin-top:16px}.hint{font-size:11px;color:var(--muted);margin-top:5px}.notice{border:1px solid #4b3d23;background:#282216;color:#e9bd67;padding:10px 12px;border-radius:10px;font-size:12px;margin-bottom:15px}
-@media(max-width:800px){.cards{grid-template-columns:repeat(2,1fr)}.grid{grid-template-columns:1fr}.top{align-items:flex-start;flex-direction:column}.actions{width:100%}}
-@media(max-width:480px){.app{padding:18px 12px 40px}.card{padding:12px}.card .value{font-size:21px}.form-grid{grid-template-columns:1fr}.full{grid-column:auto}td,th{white-space:nowrap}}
-</style>
-</head>
-<body>
-<div class="app">
-  <header class="top">
-    <div class="brand"><div class="logo">৳</div><div><h1>Labba Hisab Kitab.com</h1><p>Personal lending & borrowing tracker</p></div></div>
-    <div class="actions">
-      <span class="status"><i class="dot"></i> Saved on this device</span>
-      <button id="exportBtn">Export Backup</button>
-      <button id="importBtn">Import Backup</button>
-      <button class="primary" id="addBtn">＋ Add Transaction</button>
-      <input id="fileInput" type="file" accept=".json,application/json" hidden>
-    </div>
-  </header>
-
-  <div class="notice">Your records are stored in this browser using IndexedDB. Export a JSON backup regularly. Clearing browser site data or using a different browser/device can remove or hide local records.</div>
-
-  <section class="cards">
-    <div class="card"><div class="label">I Will Receive</div><div class="value green" id="receiveTotal">৳0</div></div>
-    <div class="card"><div class="label">I Need to Pay</div><div class="value red" id="payTotal">৳0</div></div>
-    <div class="card"><div class="label">Total Lent</div><div class="value blue" id="lentTotal">৳0</div></div>
-    <div class="card"><div class="label">Total Borrowed</div><div class="value amber" id="borrowedTotal">৳0</div></div>
-  </section>
-
-  <section class="grid">
-    <div class="panel">
-      <div class="panel-head"><h2>Money Overview</h2><span class="muted" style="font-size:11px">Outstanding balance</span></div>
-      <div class="chart-wrap"><canvas id="chart"></canvas></div>
-      <div class="legend"><span style="--c:#48c78e">I will receive</span><span style="--c:#f07878">I need to pay</span><span style="--c:#76a9fa">Paid / received</span></div>
-    </div>
-    <div class="panel">
-      <div class="panel-head"><h2>People & Balances</h2><span class="muted" id="peopleCount">0 people</span></div>
-      <div class="person-list" id="peopleList"><div class="empty">No people added yet.</div></div>
-    </div>
-  </section>
-
-  <section class="panel">
-    <div class="panel-head"><h2>Transaction History</h2><button class="small" id="clearFilters">Clear filters</button></div>
-    <div class="toolbar">
-      <input id="search" placeholder="Search by person or note…">
-      <select id="typeFilter"><option value="">All transaction types</option><option value="lent">Money lent</option><option value="borrowed">Money borrowed</option><option value="received">Money received</option><option value="paid">Money paid</option></select>
-    </div>
-    <div class="table-scroll"><table><thead><tr><th>Date</th><th>Person</th><th>Type</th><th>Amount</th><th>Note</th><th>Actions</th></tr></thead><tbody id="transactions"><tr><td colspan="6" class="empty">No transactions yet. Add your first transaction.</td></tr></tbody></table></div>
-  </section>
-  <p class="muted" style="font-size:11px;text-align:center;margin-top:18px">Dhar Hisab · Private local storage · Amounts in Bangladeshi Taka (BDT)</p>
-</div>
-
-<div class="modal" id="modal">
-  <div class="dialog">
-    <div class="dialog-head"><h2 id="modalTitle">Add Transaction</h2><button id="closeModal" aria-label="Close">✕</button></div>
-    <form id="transactionForm">
-      <div class="form-grid">
-        <div class="field full"><label for="person">Person's name *</label><input id="person" required maxlength="80" placeholder="e.g. Rahim"></div>
-        <div class="field"><label for="type">Transaction type *</label><select id="type" required><option value="lent">I lent money</option><option value="borrowed">I borrowed money</option><option value="received">I received money back</option><option value="paid">I paid money back</option></select></div>
-        <div class="field"><label for="amount">Amount (BDT) *</label><input id="amount" type="number" min="0.01" step="0.01" required placeholder="1000"></div>
-        <div class="field"><label for="date">Date *</label><input id="date" type="date" required></div>
-        <div class="field"><label for="note">Note (optional)</label><input id="note" maxlength="180" placeholder="Payment details"></div>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="theme-color" content="#10141b" />
+    <title>Labba Hisab Kitab — Money Manager</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        --bg: #0d1118;
+        --panel: #171e29;
+        --panel2: #202a38;
+        --line: #2b3748;
+        --text: #edf2f8;
+        --muted: #9aa8ba;
+        --green: #55d6a0;
+        --red: #ff8585;
+        --blue: #82b5ff;
+        --amber: #f2c66d;
+        --shadow: 0 12px 35px #0003;
+      }
+      :root.light {
+        color-scheme: light;
+        --bg: #f3f6fa;
+        --panel: #fff;
+        --panel2: #f0f4f8;
+        --line: #dce4ed;
+        --text: #182230;
+        --muted: #687789;
+        --green: #13885c;
+        --red: #d64d4d;
+        --blue: #286dc4;
+        --amber: #a87510;
+        --shadow: 0 10px 30px #1a2b4010;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+        font:
+          14px/1.5 Inter,
+          system-ui,
+          sans-serif;
+      }
+      button,
+      input,
+      select,
+      textarea {
+        font: inherit;
+      }
+      button {
+        cursor: pointer;
+        border: 1px solid var(--line);
+        border-radius: 9px;
+        background: var(--panel2);
+        color: var(--text);
+        padding: 9px 12px;
+      }
+      button:hover {
+        filter: brightness(1.1);
+      }
+      button.primary {
+        background: var(--green);
+        border-color: var(--green);
+        color: #062216;
+        font-weight: 750;
+      }
+      button.danger {
+        color: var(--red);
+      }
+      button.small {
+        padding: 5px 8px;
+        font-size: 12px;
+      }
+      .app {
+        max-width: 1320px;
+        margin: auto;
+        padding: 24px 18px 55px;
+      }
+      .top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 16px;
+        margin-bottom: 20px;
+      }
+      .brand {
+        display: flex;
+        gap: 11px;
+        align-items: center;
+      }
+      .logo {
+        width: 44px;
+        height: 44px;
+        border-radius: 13px;
+        background: #1d4235;
+        color: #6de0ad;
+        display: grid;
+        place-items: center;
+        font-size: 22px;
+        font-weight: 900;
+      }
+      .brand h1 {
+        font-size: 20px;
+        margin: 0;
+      }
+      .brand p {
+        margin: 2px 0 0;
+        color: var(--muted);
+        font-size: 12px;
+      }
+      .actions,
+      .toolbar,
+      .tabs {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        align-items: center;
+      }
+      .status {
+        color: var(--green);
+        font-size: 11px;
+      }
+      .dot {
+        display: inline-block;
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: var(--green);
+        margin-right: 5px;
+      }
+      .notice {
+        padding: 10px 13px;
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        color: var(--muted);
+        font-size: 12px;
+        margin-bottom: 16px;
+      }
+      .cards {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 12px;
+        margin-bottom: 15px;
+      }
+      .card,
+      .panel {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        box-shadow: var(--shadow);
+      }
+      .card {
+        padding: 15px;
+      }
+      .label {
+        font-size: 12px;
+        color: var(--muted);
+      }
+      .value {
+        font-size: 24px;
+        font-weight: 800;
+        margin-top: 5px;
+        letter-spacing: -0.5px;
+      }
+      .green {
+        color: var(--green);
+      }
+      .red {
+        color: var(--red);
+      }
+      .blue {
+        color: var(--blue);
+      }
+      .amber {
+        color: var(--amber);
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: 1.15fr 0.85fr;
+        gap: 14px;
+        margin-bottom: 14px;
+      }
+      .panel {
+        padding: 16px;
+        margin-bottom: 14px;
+        min-width: 0;
+      }
+      .panel-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 13px;
+      }
+      .panel-head h2 {
+        font-size: 16px;
+        margin: 0;
+      }
+      .muted {
+        color: var(--muted);
+      }
+      .chart-wrap {
+        height: 190px;
+      }
+      .chart-wrap canvas {
+        width: 100%;
+        height: 100%;
+      }
+      .person-list {
+        display: grid;
+        gap: 8px;
+        max-height: 260px;
+        overflow: auto;
+      }
+      .person {
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+        align-items: center;
+        background: var(--panel2);
+        padding: 10px;
+        border-radius: 10px;
+      }
+      .person small {
+        display: block;
+        color: var(--muted);
+      }
+      .pill {
+        font-size: 10px;
+        border-radius: 20px;
+        padding: 3px 7px;
+        background: #1d3e32;
+        color: var(--green);
+        white-space: nowrap;
+      }
+      .pill.owe {
+        background: #482b30;
+        color: var(--red);
+      }
+      .pill.warn {
+        background: #493b20;
+        color: var(--amber);
+      }
+      input,
+      select,
+      textarea {
+        background: var(--bg);
+        color: var(--text);
+        border: 1px solid var(--line);
+        border-radius: 9px;
+        padding: 9px 10px;
+        min-width: 0;
+      }
+      input:focus,
+      select:focus,
+      textarea:focus {
+        outline: 1px solid var(--green);
+      }
+      .toolbar input {
+        flex: 1;
+        min-width: 170px;
+      }
+      .toolbar select {
+        max-width: 190px;
+      }
+      .table-scroll {
+        overflow: auto;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        min-width: 760px;
+      }
+      th {
+        text-align: left;
+        color: var(--muted);
+        font-size: 11px;
+        padding: 10px 8px;
+        border-bottom: 1px solid var(--line);
+      }
+      td {
+        padding: 10px 8px;
+        border-bottom: 1px solid var(--line);
+        font-size: 13px;
+      }
+      tr:last-child td {
+        border-bottom: 0;
+      }
+      .empty {
+        text-align: center;
+        padding: 25px;
+        color: var(--muted);
+      }
+      .tabs {
+        margin-bottom: 12px;
+      }
+      .tab.active {
+        background: var(--green);
+        color: #062216;
+        border-color: var(--green);
+        font-weight: 700;
+      }
+      .modal {
+        position: fixed;
+        inset: 0;
+        background: #000a;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        padding: 14px;
+        z-index: 5;
+      }
+      .modal.open {
+        display: flex;
+      }
+      .dialog {
+        width: min(650px, 100%);
+        max-height: 92vh;
+        overflow: auto;
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        padding: 19px;
+        box-shadow: var(--shadow);
+      }
+      .dialog-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 14px;
+      }
+      .dialog-head h2 {
+        margin: 0;
+        font-size: 17px;
+      }
+      .form-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0 12px;
+      }
+      .field {
+        margin-bottom: 11px;
+      }
+      .field label {
+        display: block;
+        color: var(--muted);
+        font-size: 12px;
+        margin-bottom: 5px;
+      }
+      .full {
+        grid-column: 1/-1;
+      }
+      .dialog-foot {
+        display: flex;
+        justify-content: flex-end;
+        gap: 8px;
+        margin-top: 12px;
+      }
+      .report-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+      }
+      .report-item {
+        padding: 12px;
+        background: var(--panel2);
+        border-radius: 10px;
+      }
+      .report-item strong {
+        display: block;
+        font-size: 18px;
+        margin-top: 5px;
+      }
+      .overdue {
+        color: var(--red);
+      }
+      footer {
+        text-align: center;
+        color: var(--muted);
+        font-size: 11px;
+        margin-top: 20px;
+      }
+      @media (max-width: 850px) {
+        .cards {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .grid {
+          grid-template-columns: 1fr;
+        }
+        .top {
+          align-items: flex-start;
+          flex-direction: column;
+        }
+        .actions {
+          width: 100%;
+        }
+      }
+      @media (max-width: 520px) {
+        .app {
+          padding: 16px 11px 40px;
+        }
+        .cards {
+          gap: 8px;
+        }
+        .card {
+          padding: 11px;
+        }
+        .value {
+          font-size: 20px;
+        }
+        .form-grid {
+          grid-template-columns: 1fr;
+        }
+        .full {
+          grid-column: auto;
+        }
+        .report-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+        .actions button {
+          flex: 1;
+        }
+      }
+      @media print {
+        body {
+          background: white;
+          color: #111;
+        }
+        .app {
+          max-width: none;
+          padding: 0;
+        }
+        .top .actions,
+        .notice,
+        .tabs,
+        .toolbar,
+        .no-print,
+        button {
+          display: none !important;
+        }
+        .panel,
+        .card {
+          box-shadow: none;
+          background: white;
+          border: 1px solid #ddd;
+          color: #111;
+          break-inside: avoid;
+        }
+        .muted,
+        .label {
+          color: #555;
+        }
+        table {
+          min-width: 0;
+        }
+        th,
+        td {
+          color: #111;
+          border-color: #ddd;
+        }
+        .cards {
+          grid-template-columns: repeat(4, 1fr);
+        }
+        .grid {
+          grid-template-columns: 1fr 1fr;
+        }
+        footer {
+          color: #555;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="app">
+      <header class="top">
+        <div class="brand">
+          <div class="logo">৳</div>
+          <div>
+            <h1>Labba Hisab Kitab</h1>
+            <p>Personal lending, borrowing & money manager</p>
+          </div>
+        </div>
+        <div class="actions">
+          <span class="status"><i class="dot"></i> Saved on this device</span
+          ><button id="themeBtn">☀ Theme</button
+          ><button id="csvBtn">Export CSV</button
+          ><button id="backupBtn">Backup JSON</button
+          ><button id="importBtn">Restore</button
+          ><button class="primary" id="addBtn">＋ Add transaction</button
+          ><input
+            id="fileInput"
+            type="file"
+            accept=".json,application/json"
+            hidden
+          />
+        </div>
+      </header>
+      <div class="notice">
+        Your records stay in this browser (IndexedDB). Export a backup
+        regularly. For privacy, avoid using shared devices. This app does not
+        sync across devices.
       </div>
-      <div class="hint">Use “I received money back” for repayments from someone who borrowed from you. Use “I paid money back” for repayments to someone you borrowed from.</div>
-      <div class="dialog-foot"><button type="button" id="cancelBtn">Cancel</button><button class="primary" type="submit">Save Transaction</button></div>
-    </form>
-  </div>
-</div>
-<div class="modal" id="personModal">
-  <div class="dialog">
-    <div class="dialog-head"><h2 id="personTitle">Person Details</h2><button id="closePerson">✕</button></div>
-    <div id="personSummary"></div>
-    <div class="table-scroll" style="margin-top:14px"><table><thead><tr><th>Date</th><th>Type</th><th>Amount</th><th>Note</th></tr></thead><tbody id="personTransactions"></tbody></table></div>
-  </div>
-</div>
+      <section class="cards">
+        <div class="card">
+          <div class="label">You will receive</div>
+          <div class="value green" id="receiveTotal">৳0</div>
+        </div>
+        <div class="card">
+          <div class="label">You need to pay</div>
+          <div class="value red" id="payTotal">৳0</div>
+        </div>
+        <div class="card">
+          <div class="label">Total lent</div>
+          <div class="value blue" id="lentTotal">৳0</div>
+        </div>
+        <div class="card">
+          <div class="label">Total borrowed</div>
+          <div class="value amber" id="borrowedTotal">৳0</div>
+        </div>
+      </section>
+      <section class="cards">
+        <div class="card">
+          <div class="label">Total received back</div>
+          <div class="value green" id="returnedTotal">৳0</div>
+        </div>
+        <div class="card">
+          <div class="label">Total paid back</div>
+          <div class="value red" id="paidTotal">৳0</div>
+        </div>
+        <div class="card">
+          <div class="label">Overdue amount</div>
+          <div class="value red" id="overdueTotal">৳0</div>
+        </div>
+        <div class="card">
+          <div class="label">People tracked</div>
+          <div class="value" id="peopleCount">0</div>
+        </div>
+      </section>
+      <section class="grid">
+        <div class="panel">
+          <div class="panel-head">
+            <h2>Money overview</h2>
+            <span class="muted">Outstanding balance</span>
+          </div>
+          <div class="chart-wrap"><canvas id="chart"></canvas></div>
+        </div>
+        <div class="panel">
+          <div class="panel-head">
+            <h2>People & balances</h2>
+            <button class="small" id="peoplePrint">Print list</button>
+          </div>
+          <div class="person-list" id="peopleList">
+            <div class="empty">No people added yet.</div>
+          </div>
+        </div>
+      </section>
+      <section class="panel">
+        <div class="panel-head">
+          <h2>Transaction history</h2>
+          <div class="actions no-print">
+            <button class="small" id="printBtn">Print report</button
+            ><button class="small" id="clearFilters">Clear filters</button>
+          </div>
+        </div>
+        <div class="toolbar no-print">
+          <input
+            id="search"
+            placeholder="Search person, phone or note…"
+          /><select id="typeFilter">
+            <option value="">All types</option>
+            <option value="lent">Money lent</option>
+            <option value="borrowed">Money borrowed</option>
+            <option value="received">Money received</option>
+            <option value="paid">Money paid</option></select
+          ><select id="categoryFilter">
+            <option value="">All categories</option>
+            <option>Personal</option>
+            <option>Business</option>
+            <option>Family</option>
+            <option>Emergency</option>
+            <option>Other</option></select
+          ><input id="fromDate" type="date" title="From date" /><input
+            id="toDate"
+            type="date"
+            title="To date"
+          />
+        </div>
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Person</th>
+                <th>Type</th>
+                <th>Amount</th>
+                <th>Due date</th>
+                <th>Category</th>
+                <th>Note</th>
+                <th class="no-print">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="transactions"></tbody>
+          </table>
+        </div>
+      </section>
+      <section class="panel">
+        <div class="panel-head">
+          <h2>Monthly report</h2>
+          <input id="reportMonth" type="month" style="max-width: 180px" />
+        </div>
+        <div class="report-grid" id="monthlyReport"></div>
+        <p
+          class="muted"
+          id="reportNote"
+          style="font-size: 12px; margin-bottom: 0"
+        ></p>
+      </section>
+      <footer>
+        Labba Hisab Kitab · Private local storage · Currency: Bangladeshi Taka
+        (BDT)
+      </footer>
+    </main>
 
-<script>
-const DB_NAME='dhar-hisab-db', STORE='transactions', DB_VERSION=1;
-let db, records=[], editingId=null;
-const $=id=>document.getElementById(id);
-const money=n=>'৳'+Number(n||0).toLocaleString('en-BD',{maximumFractionDigits:2});
-const dateToday=()=>new Date().toISOString().slice(0,10);
-const labels={lent:'Money lent',borrowed:'Money borrowed',received:'Money received',paid:'Money paid'};
-function openDB(){return new Promise((resolve,reject)=>{const req=indexedDB.open(DB_NAME,DB_VERSION);req.onupgradeneeded=()=>{const d=req.result;if(!d.objectStoreNames.contains(STORE)){const s=d.createObjectStore(STORE,{keyPath:'id',autoIncrement:true});s.createIndex('date','date');}};req.onsuccess=()=>resolve(req.result);req.onerror=()=>reject(req.error);});}
-function tx(mode='readonly'){return db.transaction(STORE,mode).objectStore(STORE);}
-function allRecords(){return new Promise((resolve,reject)=>{const r=tx().getAll();r.onsuccess=()=>resolve(r.result);r.onerror=()=>reject(r.error);});}
-function saveRecord(record){return new Promise((resolve,reject)=>{const r=tx('readwrite').put(record);r.onsuccess=()=>resolve(r.result);r.onerror=()=>reject(r.error);});}
-function deleteRecord(id){return new Promise((resolve,reject)=>{const r=tx('readwrite').delete(id);r.onsuccess=()=>resolve();r.onerror=()=>reject(r.error);});}
-function balanceFor(items){let receive=0,pay=0,lent=0,borrowed=0,returned=0,paid=0;for(const x of items){const a=Number(x.amount)||0;if(x.type==='lent'){receive+=a;lent+=a}else if(x.type==='borrowed'){pay+=a;borrowed+=a}else if(x.type==='received'){receive-=a;returned+=a}else if(x.type==='paid'){pay-=a;paid+=a}}return{receive,pay,lent,borrowed,returned,paid};}
-function render(){
- const totals=balanceFor(records);$('receiveTotal').textContent=money(Math.max(0,totals.receive));$('payTotal').textContent=money(Math.max(0,totals.pay));$('lentTotal').textContent=money(totals.lent);$('borrowedTotal').textContent=money(totals.borrowed);
- const people=new Map();for(const r of records){const key=r.person.trim().toLowerCase();if(!people.has(key))people.set(key,{name:r.person,items:[]});people.get(key).items.push(r)}
- $('peopleCount').textContent=people.size+' people';
- const plist=[...people.values()].map(p=>({...p,balance:balanceFor(p.items)})).sort((a,b)=>(Math.abs(b.balance.receive)+Math.abs(b.balance.pay))-(Math.abs(a.balance.receive)+Math.abs(a.balance.pay)));
- $('peopleList').innerHTML=plist.length?plist.map((p,i)=>{const b=p.balance;const net=b.receive-b.pay;let label=net>0.005?'Will receive '+money(net):net<-.005?'Need to pay '+money(-net):'Settled';return `<div class="person"><div><strong>${esc(p.name)}</strong><small>${p.items.length} transaction${p.items.length===1?'':'s'}</small></div><div style="text-align:right"><span class="pill ${net<-.005?'owe':''}">${label}</span><div style="margin-top:5px"><button class="small" data-person="${escAttr(p.name)}">Details</button></div></div></div>`}).join(''):'<div class="empty">No people added yet.</div>';
- renderTransactions();drawChart(totals);
-}
-function renderTransactions(){const q=$('search').value.trim().toLowerCase(),f=$('typeFilter').value;const list=[...records].sort((a,b)=>b.date.localeCompare(a.date)||b.id-a.id).filter(r=>(!f||r.type===f)&&(!q||r.person.toLowerCase().includes(q)||(r.note||'').toLowerCase().includes(q)));$('transactions').innerHTML=list.length?list.map(r=>`<tr><td>${esc(r.date)}</td><td><strong>${esc(r.person)}</strong></td><td>${labels[r.type]}</td><td class="${r.type==='lent'||r.type==='received'?'green':'red'}">${money(r.amount)}</td><td>${esc(r.note||'—')}</td><td><button class="small" data-edit="${r.id}">Edit</button> <button class="small danger" data-delete="${r.id}">Delete</button></td></tr>`).join(''):'<tr><td colspan="6" class="empty">No matching transactions.</td></tr>';}
-function drawChart(t){const c=$('chart'),ctx=c.getContext('2d'),w=c.clientWidth,h=c.clientHeight,dpr=window.devicePixelRatio||1;c.width=w*dpr;c.height=h*dpr;ctx.scale(dpr,dpr);ctx.clearRect(0,0,w,h);const vals=[Math.max(0,t.receive),Math.max(0,t.pay),t.returned+t.paid],max=Math.max(1,...vals),colors=['#48c78e','#f07878','#76a9fa'];const names=['Receive','Pay','Paid back'];const gap= w/4,barW=Math.min(54,gap*.48);ctx.font='11px system-ui';ctx.textAlign='center';vals.forEach((v,i)=>{const x=gap*(i+.55),bh=(h-48)*(v/max);ctx.fillStyle='#242b37';roundRect(ctx,x-barW/2,8,barW,h-48,7);ctx.fill();ctx.fillStyle=colors[i];roundRect(ctx,x-barW/2,h-40-bh,barW,bh,7);ctx.fill();ctx.fillStyle='#a0a8b6';ctx.fillText(names[i],x,h-14);ctx.fillStyle='#edf0f6';ctx.fillText(shortMoney(v),x,Math.max(12,h-45-bh));});}
-function roundRect(ctx,x,y,w,h,r){h=Math.max(0,h);ctx.beginPath();ctx.roundRect(x,y,w,h,Math.min(r,w/2,h/2));}
-function shortMoney(v){return v>=100000?(v/100000).toFixed(1)+'L':v>=1000?(v/1000).toFixed(1)+'k':Math.round(v).toString();}
-function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
-function escAttr(s){return esc(s).replace(/`/g,'&#96;')}
-function openForm(item){editingId=item?.id??null;$('modalTitle').textContent=item?'Edit Transaction':'Add Transaction';$('person').value=item?.person||'';$('type').value=item?.type||'lent';$('amount').value=item?.amount??'';$('date').value=item?.date||dateToday();$('note').value=item?.note||'';$('modal').classList.add('open');$('person').focus();}
-function closeForm(){$('modal').classList.remove('open');$('transactionForm').reset();editingId=null;}
-$('addBtn').onclick=()=>openForm();$('closeModal').onclick=closeForm;$('cancelBtn').onclick=closeForm;
-$('transactionForm').onsubmit=async e=>{e.preventDefault();const record={person:$('person').value.trim(),type:$('type').value,amount:Number($('amount').value),date:$('date').value,note:$('note').value.trim()};if(!record.person||!Number.isFinite(record.amount)||record.amount<=0)return;try{if(editingId!==null)record.id=editingId;await saveRecord(record);await refresh();closeForm();}catch(err){alert('Could not save this transaction: '+err.message)}};
-$('transactions').onclick=async e=>{const edit=e.target.dataset.edit,del=e.target.dataset.delete;if(edit){const item=records.find(r=>r.id===Number(edit));if(item)openForm(item)}if(del){const item=records.find(r=>r.id===Number(del));if(item&&confirm(`Delete this ${labels[item.type]} transaction for ${item.person}?`)){await deleteRecord(item.id);await refresh()}}};
-$('peopleList').onclick=e=>{const name=e.target.dataset.person;if(!name)return;const items=records.filter(r=>r.person.toLowerCase()===name.toLowerCase()).sort((a,b)=>b.date.localeCompare(a.date));const b=balanceFor(items),net=b.receive-b.pay;$('personTitle').textContent=name;$('personSummary').innerHTML=`<div class="cards" style="grid-template-columns:1fr 1fr;margin:0"><div class="card"><div class="label">Outstanding</div><div class="value ${net>=0?'green':'red'}" style="font-size:20px">${money(Math.abs(net))}</div><small class="muted">${net>=0?'They owe you':'You owe them'}</small></div><div class="card"><div class="label">Transactions</div><div class="value" style="font-size:20px">${items.length}</div></div></div>`;$('personTransactions').innerHTML=items.map(r=>`<tr><td>${esc(r.date)}</td><td>${labels[r.type]}</td><td>${money(r.amount)}</td><td>${esc(r.note||'—')}</td></tr>`).join('');$('personModal').classList.add('open')};
-$('closePerson').onclick=()=>$('personModal').classList.remove('open');
-$('search').oninput=renderTransactions;$('typeFilter').onchange=renderTransactions;$('clearFilters').onclick=()=>{$('search').value='';$('typeFilter').value='';renderTransactions()};
-async function refresh(){records=await allRecords();render();}
-$('exportBtn').onclick=()=>{const data={app:'Dhar Hisab',version:1,exportedAt:new Date().toISOString(),currency:'BDT',transactions:records};const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='dhar-hisab-backup-'+dateToday()+'.json';a.click();URL.revokeObjectURL(url)};
-$('importBtn').onclick=()=>$('fileInput').click();
-$('fileInput').onchange=async e=>{const file=e.target.files[0];if(!file)return;try{const data=JSON.parse(await file.text());if(!data||!Array.isArray(data.transactions))throw Error('Invalid backup file.');const valid=data.transactions.every(r=>r&&typeof r.person==='string'&&['lent','borrowed','received','paid'].includes(r.type)&&Number.isFinite(Number(r.amount))&&Number(r.amount)>0&&typeof r.date==='string');if(!valid)throw Error('Backup contains invalid transaction records.');if(!confirm(`Import ${data.transactions.length} transactions? This will replace all current records.`))return;await new Promise((resolve,reject)=>{const t=db.transaction(STORE,'readwrite'),s=t.objectStore(STORE);s.clear();for(const r of data.transactions){const copy={person:r.person,type:r.type,amount:Number(r.amount),date:r.date,note:String(r.note||'')};s.add(copy)}t.oncomplete=resolve;t.onerror=()=>reject(t.error);t.onabort=()=>reject(t.error||new Error('Import cancelled'));});await refresh();alert('Backup imported successfully.');}catch(err){alert('Import failed: '+err.message)}finally{$('fileInput').value=''}};
-window.addEventListener('resize',()=>{if(records.length||db)drawChart(balanceFor(records))});
-(async()=>{try{if(!('indexedDB'in window))throw Error('IndexedDB is not supported by this browser.');db=await openDB();await refresh()}catch(e){alert('Storage could not be opened: '+e.message)}})();
-</script>
-</body>
+    <div class="modal" id="modal">
+      <div class="dialog">
+        <div class="dialog-head">
+          <h2 id="modalTitle">Add transaction</h2>
+          <button id="closeModal">✕</button>
+        </div>
+        <form id="transactionForm">
+          <div class="form-grid">
+            <div class="field">
+              <label>Person's name *</label
+              ><input
+                id="person"
+                required
+                maxlength="80"
+                placeholder="e.g. Rahim"
+              />
+            </div>
+            <div class="field">
+              <label>Phone number</label
+              ><input id="phone" maxlength="25" placeholder="01XXXXXXXXX" />
+            </div>
+            <div class="field">
+              <label>Transaction type *</label
+              ><select id="type">
+                <option value="lent">I lent money</option>
+                <option value="borrowed">I borrowed money</option>
+                <option value="received">I received money back</option>
+                <option value="paid">I paid money back</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>Amount (BDT) *</label
+              ><input
+                id="amount"
+                type="number"
+                min=".01"
+                step=".01"
+                required
+                placeholder="1000"
+              />
+            </div>
+            <div class="field">
+              <label>Transaction date *</label
+              ><input id="date" type="date" required />
+            </div>
+            <div class="field">
+              <label>Due date (optional)</label
+              ><input id="dueDate" type="date" />
+            </div>
+            <div class="field">
+              <label>Category</label
+              ><select id="category">
+                <option>Personal</option>
+                <option>Business</option>
+                <option>Family</option>
+                <option>Emergency</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div class="field full">
+              <label>Note</label
+              ><textarea
+                id="note"
+                rows="2"
+                maxlength="300"
+                placeholder="Reason, reference or details…"
+              ></textarea>
+            </div>
+          </div>
+          <p class="muted" style="font-size: 11px">
+            Use “received money back” when someone repays you, and “paid money
+            back” when you repay someone.
+          </p>
+          <div class="dialog-foot">
+            <button type="button" id="cancelBtn">Cancel</button
+            ><button class="primary" type="submit">Save transaction</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="modal" id="personModal">
+      <div class="dialog">
+        <div class="dialog-head">
+          <h2 id="personTitle">Person details</h2>
+          <div>
+            <button id="personPrint">Print statement</button>
+            <button id="closePerson">✕</button>
+          </div>
+        </div>
+        <div id="personSummary"></div>
+        <div class="table-scroll" style="margin-top: 14px">
+          <table>
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Type</th>
+                <th>Amount</th>
+                <th>Due date</th>
+                <th>Note</th>
+              </tr>
+            </thead>
+            <tbody id="personTransactions"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <script>
+      const DB_NAME = "dhar-hisab-db",
+        STORE = "transactions",
+        DB_VERSION = 1;
+      let db,
+        records = [],
+        editingId = null,
+        currentPerson = "";
+      const $ = (id) => document.getElementById(id),
+        money = (n) =>
+          "৳" +
+          Number(n || 0).toLocaleString("en-BD", { maximumFractionDigits: 2 }),
+        today = () => {
+          const d = new Date();
+          return new Date(d.getTime() - d.getTimezoneOffset() * 60000)
+            .toISOString()
+            .slice(0, 10);
+        },
+        labels = {
+          lent: "Money lent",
+          borrowed: "Money borrowed",
+          received: "Money received",
+          paid: "Money paid",
+        };
+      function openDB() {
+        return new Promise((resolve, reject) => {
+          const r = indexedDB.open(DB_NAME, DB_VERSION);
+          r.onupgradeneeded = () => {
+            const d = r.result;
+            if (!d.objectStoreNames.contains(STORE)) {
+              const s = d.createObjectStore(STORE, {
+                keyPath: "id",
+                autoIncrement: true,
+              });
+              s.createIndex("date", "date");
+            }
+          };
+          r.onsuccess = () => resolve(r.result);
+          r.onerror = () => reject(r.error);
+        });
+      }
+      function store(mode = "readonly") {
+        return db.transaction(STORE, mode).objectStore(STORE);
+      }
+      function allRecords() {
+        return new Promise((res, rej) => {
+          const r = store().getAll();
+          r.onsuccess = () => res(r.result);
+          r.onerror = () => rej(r.error);
+        });
+      }
+      function saveRecord(x) {
+        return new Promise((res, rej) => {
+          const r = store("readwrite").put(x);
+          r.onsuccess = () => res(r.result);
+          r.onerror = () => rej(r.error);
+        });
+      }
+      function deleteRecord(id) {
+        return new Promise((res, rej) => {
+          const r = store("readwrite").delete(id);
+          r.onsuccess = res;
+          r.onerror = () => rej(r.error);
+        });
+      }
+      function calc(items) {
+        let receive = 0,
+          pay = 0,
+          lent = 0,
+          borrowed = 0,
+          returned = 0,
+          paid = 0;
+        for (const x of items) {
+          let a = +x.amount || 0;
+          if (x.type === "lent") {
+            receive += a;
+            lent += a;
+          } else if (x.type === "borrowed") {
+            pay += a;
+            borrowed += a;
+          } else if (x.type === "received") {
+            receive -= a;
+            returned += a;
+          } else if (x.type === "paid") {
+            pay -= a;
+            paid += a;
+          }
+        }
+        return { receive, pay, lent, borrowed, returned, paid };
+      }
+      function esc(s) {
+        return String(s ?? "").replace(
+          /[&<>"']/g,
+          (c) =>
+            ({
+              "&": "&amp;",
+              "<": "&lt;",
+              ">": "&gt;",
+              '"': "&quot;",
+              "'": "&#39;",
+            })[c],
+        );
+      }
+      function peopleMap() {
+        const m = new Map();
+        records.forEach((r) => {
+          let k = r.person.trim().toLowerCase();
+          if (!m.has(k))
+            m.set(k, { name: r.person, phone: r.phone || "", items: [] });
+          let p = m.get(k);
+          p.items.push(r);
+          if (r.phone) p.phone = r.phone;
+        });
+        return m;
+      }
+      function render() {
+        let t = calc(records),
+          overdue = records
+            .filter(
+              (r) =>
+                r.dueDate &&
+                r.dueDate < today() &&
+                ((r.type === "lent" &&
+                  calc(
+                    records.filter(
+                      (x) => x.person.toLowerCase() === r.person.toLowerCase(),
+                    ),
+                  ).receive > 0) ||
+                  (r.type === "borrowed" &&
+                    calc(
+                      records.filter(
+                        (x) =>
+                          x.person.toLowerCase() === r.person.toLowerCase(),
+                      ),
+                    ).pay > 0)),
+            )
+            .reduce((s, r) => s + Number(r.amount), 0);
+        $("receiveTotal").textContent = money(Math.max(0, t.receive));
+        $("payTotal").textContent = money(Math.max(0, t.pay));
+        $("lentTotal").textContent = money(t.lent);
+        $("borrowedTotal").textContent = money(t.borrowed);
+        $("returnedTotal").textContent = money(t.returned);
+        $("paidTotal").textContent = money(t.paid);
+        $("overdueTotal").textContent = money(overdue);
+        const people = [...peopleMap().values()]
+          .map((p) => ({ ...p, b: calc(p.items) }))
+          .sort(
+            (a, b) =>
+              Math.abs(b.b.receive - b.b.pay) - Math.abs(a.b.receive - a.b.pay),
+          );
+        $("peopleCount").textContent = people.length;
+        $("peopleList").innerHTML = people.length
+          ? people
+              .map((p) => {
+                let n = p.b.receive - p.b.pay;
+                return `<div class="person"><div><strong>${esc(p.name)}</strong><small>${esc(p.phone || "No phone")} · ${p.items.length} transactions</small></div><div style="text-align:right"><span class="pill ${n < -0.005 ? "owe" : ""}">${Math.abs(n) < 0.005 ? "Settled" : n > 0 ? "Will receive " + money(n) : "Need to pay " + money(-n)}</span><div style="margin-top:5px"><button class="small" data-person="${esc(p.name)}">Details</button></div></div></div>`;
+              })
+              .join("")
+          : '<div class="empty">No people added yet.</div>';
+        renderTransactions();
+        renderMonthly();
+        drawChart(t);
+      }
+      function renderTransactions() {
+        let q = $("search").value.trim().toLowerCase(),
+          f = $("typeFilter").value,
+          c = $("categoryFilter").value,
+          from = $("fromDate").value,
+          to = $("toDate").value;
+        let list = [...records]
+          .sort(
+            (a, b) => b.date.localeCompare(a.date) || (b.id || 0) - (a.id || 0),
+          )
+          .filter(
+            (r) =>
+              (!f || r.type === f) &&
+              (!c || (r.category || "Personal") === c) &&
+              (!from || r.date >= from) &&
+              (!to || r.date <= to) &&
+              (!q ||
+                [r.person, r.phone, r.note]
+                  .join(" ")
+                  .toLowerCase()
+                  .includes(q)),
+          );
+        $("transactions").innerHTML = list.length
+          ? list
+              .map(
+                (r) =>
+                  `<tr><td>${esc(r.date)}</td><td><strong>${esc(r.person)}</strong><br><small class="muted">${esc(r.phone || "")}</small></td><td>${labels[r.type] || r.type}</td><td class="${r.type === "lent" || r.type === "received" ? "green" : "red"}">${money(r.amount)}</td><td>${r.dueDate ? `<span class="${r.dueDate < today() ? "overdue" : ""}">${esc(r.dueDate)}</span>` : "—"}</td><td>${esc(r.category || "Personal")}</td><td>${esc(r.note || "—")}</td><td class="no-print"><button class="small" data-edit="${r.id}">Edit</button> <button class="small danger" data-delete="${r.id}">Delete</button></td></tr>`,
+              )
+              .join("")
+          : '<tr><td colspan="8" class="empty">No matching transactions.</td></tr>';
+      }
+      function renderMonthly() {
+        let m = $("reportMonth").value || today().slice(0, 7),
+          items = records.filter((r) => r.date.startsWith(m)),
+          t = calc(items);
+        $("monthlyReport").innerHTML = [
+          ["Lent", t.lent, "blue"],
+          ["Borrowed", t.borrowed, "amber"],
+          ["Received back", t.returned, "green"],
+          ["Paid back", t.paid, "red"],
+          ["Net outstanding", Math.max(0, t.receive) + Math.max(0, t.pay), ""],
+          ["Transactions", items.length, ""],
+        ]
+          .map(
+            (x) =>
+              `<div class="report-item"><span class="muted">${x[0]}</span><strong class="${x[2]}">${typeof x[1] === "number" && x[0] !== "Transactions" ? money(x[1]) : x[1]}</strong></div>`,
+          )
+          .join("");
+        $("reportNote").textContent =
+          `Showing ${items.length} transaction(s) recorded in ${m}. Outstanding totals above are based on all-time records.`;
+      }
+      function drawChart(t) {
+        let c = $("chart"),
+          ctx = c.getContext("2d"),
+          w = c.clientWidth,
+          h = c.clientHeight,
+          d = window.devicePixelRatio || 1;
+        c.width = w * d;
+        c.height = h * d;
+        ctx.scale(d, d);
+        ctx.clearRect(0, 0, w, h);
+        let vals = [
+            Math.max(0, t.receive),
+            Math.max(0, t.pay),
+            t.returned + t.paid,
+          ],
+          max = Math.max(1, ...vals),
+          cols = ["#55d6a0", "#ff8585", "#82b5ff"],
+          names = ["To receive", "To pay", "Paid back"];
+        ctx.font = "11px system-ui";
+        ctx.textAlign = "center";
+        vals.forEach((v, i) => {
+          let x = (w / 4) * (i + 0.55),
+            bw = Math.min(55, (w / 4) * 0.48),
+            bh = ((h - 45) * v) / max;
+          ctx.fillStyle = getComputedStyle(
+            document.documentElement,
+          ).getPropertyValue("--panel2");
+          ctx.fillRect(x - bw / 2, 8, bw, h - 45);
+          ctx.fillStyle = cols[i];
+          ctx.fillRect(x - bw / 2, h - 37 - bh, bw, bh);
+          ctx.fillStyle = getComputedStyle(
+            document.documentElement,
+          ).getPropertyValue("--muted");
+          ctx.fillText(names[i], x, h - 12);
+          ctx.fillStyle = getComputedStyle(
+            document.documentElement,
+          ).getPropertyValue("--text");
+          ctx.fillText(
+            v >= 100000
+              ? (v / 100000).toFixed(1) + "L"
+              : v >= 1000
+                ? (v / 1000).toFixed(1) + "k"
+                : Math.round(v),
+            x,
+            Math.max(12, h - 42 - bh),
+          );
+        });
+      }
+      function openForm(r) {
+        editingId = r?.id ?? null;
+        $("modalTitle").textContent = r
+          ? "Edit transaction"
+          : "Add transaction";
+        $("person").value = r?.person || "";
+        $("phone").value = r?.phone || "";
+        $("type").value = r?.type || "lent";
+        $("amount").value = r?.amount ?? "";
+        $("date").value = r?.date || today();
+        $("dueDate").value = r?.dueDate || "";
+        $("category").value = r?.category || "Personal";
+        $("note").value = r?.note || "";
+        $("modal").classList.add("open");
+        $("person").focus();
+      }
+      function closeForm() {
+        $("modal").classList.remove("open");
+        $("transactionForm").reset();
+        editingId = null;
+      }
+      $("addBtn").onclick = () => openForm();
+      $("closeModal").onclick = $("cancelBtn").onclick = closeForm;
+      $("transactionForm").onsubmit = async (e) => {
+        e.preventDefault();
+        let r = {
+          person: $("person").value.trim(),
+          phone: $("phone").value.trim(),
+          type: $("type").value,
+          amount: Number($("amount").value),
+          date: $("date").value,
+          dueDate: $("dueDate").value,
+          category: $("category").value,
+          note: $("note").value.trim(),
+        };
+        if (!r.person || !Number.isFinite(r.amount) || r.amount <= 0)
+          return alert("Please enter a valid person and amount.");
+        if (editingId !== null) r.id = editingId;
+        try {
+          await saveRecord(r);
+          await refresh();
+          closeForm();
+        } catch (e) {
+          alert("Could not save: " + e.message);
+        }
+      };
+      $("transactions").onclick = async (e) => {
+        let edit = e.target.dataset.edit,
+          del = e.target.dataset.delete;
+        if (edit) {
+          let r = records.find((x) => x.id === Number(edit));
+          if (r) openForm(r);
+        }
+        if (del) {
+          let r = records.find((x) => x.id === Number(del));
+          if (r && confirm(`Delete transaction for ${r.person}?`)) {
+            await deleteRecord(r.id);
+            await refresh();
+          }
+        }
+      };
+      $("peopleList").onclick = (e) => {
+        let name = e.target.dataset.person;
+        if (!name) return;
+        currentPerson = name;
+        let items = records
+            .filter((r) => r.person.toLowerCase() === name.toLowerCase())
+            .sort((a, b) => b.date.localeCompare(a.date)),
+          t = calc(items),
+          net = t.receive - t.pay;
+        $("personTitle").textContent = name;
+        let phone = items.find((x) => x.phone)?.phone || "No phone saved";
+        $("personSummary").innerHTML =
+          `<p class="muted">${esc(phone)}</p><div class="report-grid"><div class="report-item">Outstanding<strong class="${net >= 0 ? "green" : "red"}">${money(Math.abs(net))}</strong></div><div class="report-item">Transactions<strong>${items.length}</strong></div><div class="report-item">Total lent<strong>${money(t.lent)}</strong></div></div>`;
+        $("personTransactions").innerHTML = items
+          .map(
+            (r) =>
+              `<tr><td>${esc(r.date)}</td><td>${labels[r.type]}</td><td>${money(r.amount)}</td><td>${esc(r.dueDate || "—")}</td><td>${esc(r.note || "—")}</td></tr>`,
+          )
+          .join("");
+        $("personModal").classList.add("open");
+      };
+      $("closePerson").onclick = () =>
+        $("personModal").classList.remove("open");
+      $("personPrint").onclick = () => window.print();
+      $("peoplePrint").onclick = () => window.print();
+      $("printBtn").onclick = () => window.print();
+      ["search", "typeFilter", "categoryFilter", "fromDate", "toDate"].forEach(
+        (id) =>
+          $(id).addEventListener(
+            id === "search" ? "input" : "change",
+            renderTransactions,
+          ),
+      );
+      $("reportMonth").value = today().slice(0, 7);
+      $("reportMonth").onchange = renderMonthly;
+      $("clearFilters").onclick = () => {
+        [
+          "search",
+          "typeFilter",
+          "categoryFilter",
+          "fromDate",
+          "toDate",
+        ].forEach((id) => ($(id).value = ""));
+        renderTransactions();
+      };
+      $("themeBtn").onclick = () => {
+        document.documentElement.classList.toggle("light");
+        localStorage.setItem(
+          "lhk-theme",
+          document.documentElement.classList.contains("light")
+            ? "light"
+            : "dark",
+        );
+        drawChart(calc(records));
+      };
+      if (localStorage.getItem("lhk-theme") === "light")
+        document.documentElement.classList.add("light");
+      $("backupBtn").onclick = () => {
+        let blob = new Blob(
+            [
+              JSON.stringify(
+                {
+                  app: "Labba Hisab Kitab",
+                  version: 2,
+                  exportedAt: new Date().toISOString(),
+                  currency: "BDT",
+                  transactions: records,
+                },
+                null,
+                2,
+              ),
+            ],
+            { type: "application/json" },
+          ),
+          url = URL.createObjectURL(blob),
+          a = document.createElement("a");
+        a.href = url;
+        a.download = "labba-hisab-backup-" + today() + ".json";
+        a.click();
+        URL.revokeObjectURL(url);
+      };
+      $("csvBtn").onclick = () => {
+        let rows = [
+            [
+              "Date",
+              "Person",
+              "Phone",
+              "Type",
+              "Amount BDT",
+              "Due date",
+              "Category",
+              "Note",
+            ],
+            ...records.map((r) => [
+              r.date,
+              r.person,
+              r.phone || "",
+              labels[r.type] || r.type,
+              r.amount,
+              r.dueDate || "",
+              r.category || "Personal",
+              r.note || "",
+            ]),
+          ],
+          csv = rows
+            .map((row) =>
+              row
+                .map((v) => '"' + String(v ?? "").replace(/"/g, '""') + '"')
+                .join(","),
+            )
+            .join("\r\n"),
+          blob = new Blob(["\ufeff" + csv], { type: "text/csv;charset=utf-8" }),
+          url = URL.createObjectURL(blob),
+          a = document.createElement("a");
+        a.href = url;
+        a.download = "labba-hisab-" + today() + ".csv";
+        a.click();
+        URL.revokeObjectURL(url);
+      };
+      $("importBtn").onclick = () => $("fileInput").click();
+      $("fileInput").onchange = async (e) => {
+        let f = e.target.files[0];
+        if (!f) return;
+        try {
+          let d = JSON.parse(await f.text());
+          if (!Array.isArray(d.transactions))
+            throw Error("Invalid backup file");
+          let valid = d.transactions.every(
+            (r) =>
+              r &&
+              typeof r.person === "string" &&
+              ["lent", "borrowed", "received", "paid"].includes(r.type) &&
+              Number(r.amount) > 0 &&
+              Number.isFinite(Number(r.amount)) &&
+              typeof r.date === "string",
+          );
+          if (!valid) throw Error("Backup has invalid transactions");
+          if (
+            !confirm(
+              `Replace current records with ${d.transactions.length} backup records? Export a backup first if needed.`,
+            )
+          )
+            return;
+          await new Promise((resolve, reject) => {
+            let t = db.transaction(STORE, "readwrite"),
+              s = t.objectStore(STORE);
+            s.clear();
+            d.transactions.forEach((r) =>
+              s.add({
+                person: r.person,
+                phone: String(r.phone || ""),
+                type: r.type,
+                amount: Number(r.amount),
+                date: r.date,
+                dueDate: String(r.dueDate || ""),
+                category: String(r.category || "Personal"),
+                note: String(r.note || ""),
+              }),
+            );
+            t.oncomplete = resolve;
+            t.onerror = () => reject(t.error);
+            t.onabort = () => reject(t.error);
+          });
+          await refresh();
+          alert("Backup restored successfully");
+        } catch (err) {
+          alert("Restore failed: " + err.message);
+        } finally {
+          $("fileInput").value = "";
+        }
+      };
+      async function refresh() {
+        records = await allRecords();
+        render();
+      }
+      window.addEventListener("resize", () => drawChart(calc(records)));
+      (async () => {
+        try {
+          if (!("indexedDB" in window)) throw Error("IndexedDB is unavailable");
+          db = await openDB();
+          await refresh();
+        } catch (e) {
+          alert("Database error: " + e.message);
+        }
+      })();
+    </script>
+  </body>
 </html>
